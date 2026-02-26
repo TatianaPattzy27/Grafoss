@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Algoritmos - Pink Aesthetic</title>
+    <link rel="stylesheet" href="Algoritmos.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">AlgoritmosGrafos</div>
+    <ul class="nav-links">
+        <li><a href="#" onclick="showSection('inicio')">Inicio</a></li>
+        <li><a href="#" onclick="showSection('analisis')">Análisis</a></li>
+        <li><a href="#" onclick="showSection('grafos')">Grafos</a></li>
+        <li><a href="#" onclick="showMatrix()">Matriz</a></li>
+    </ul>
+</nav>
+
+<section id="inicio" class="content-section active">
+    <div class="hero">
+        <div class="hero-card modern-hero">
+            <img src="https://lpz.ucb.edu.bo/wp-content/uploads/2021/04/logo-ucb-cuadrado.png" class="main-img">
+            <h1>Análisis de Algoritmos</h1>
+            <h1>Pattzy Gomez Diana Tatiana</h1>
+            <p class="subtitle">
+                Complejidad, eficiencia y optimización de estructuras de datos y grafos.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section id="analisis" class="content-section">
+    <div class="container">
+        <h2 class="title">Análisis Profesional de Algoritmos</h2>
+
+        <div class="analysis-grid">
+
+            <div class="analysis-card">
+                <h3>📊 Complejidad Temporal</h3>
+                <ul>
+                    <li>O(1)</li>
+                    <li>O(log n)</li>
+                    <li>O(n)</li>
+                    <li>O(n log n)</li>
+                    <li>O(n²)</li>
+                </ul>
+            </div>
+
+            <div class="analysis-card">
+                <h3>💾 Complejidad Espacial</h3>
+                <p>
+                    Evalúa la cantidad de memoria adicional que requiere
+                    un algoritmo para ejecutarse.
+                </p>
+            </div>
+
+            <div class="analysis-card">
+                <h3>🧠 Algoritmos Clásicos en Grafos</h3>
+                <ul>
+                    <li>BFS</li>
+                    <li>DFS</li>
+                    <li>Dijkstra</li>
+                    <li>Floyd-Warshall</li>
+                    <li>Kruskal</li>
+                    <li>Prim</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="grafos" class="content-section">
+    <div class="container">
+        <h2 class="title">Simulador Interactivo</h2>
+
+        <div class="toolbar">
+            <button class="btn btn-clear" onclick="clearCanvas()">Limpiar Todo</button>
+            <button id="btn-mode" class="btn btn-mode" onclick="toggleMode()">Modo: Crear</button>
+            <button class="btn btn-mode" onclick="showMatrix()">Matriz</button>
+        </div>
+
+        <div id="graph-container">
+            <svg id="svg-canvas">
+                <defs>
+                    <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="21" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10 Z" fill="#f06292" />
+                    </marker>
+                    <marker id="arrow-black" markerWidth="10" markerHeight="10" refX="21" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10 Z" fill="#333" />
+                    </marker>
+                </defs>
+                <g id="edges-group"></g>
+            </svg>
+            <div id="nodes-layer"></div>
+        </div>
+
+        <p id="hint" class="hint">Click en el fondo blanco para crear un nodo.</p>
+    </div>
+</section>
+
+<section id="matriz" class="content-section">
+    <div class="container">
+        <h2 class="title">Matriz de Adyacencia</h2>
+        <div id="matrix-container" class="info-card"></div>
+        <div id="matrix-results" class="info-card" style="margin-top:20px;"></div>
+    </div>
+</section>
+
+<script src="Algoritmos.js"></script>
+</body>
+</html>

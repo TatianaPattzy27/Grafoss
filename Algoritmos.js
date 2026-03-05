@@ -55,6 +55,23 @@ container.addEventListener("mousedown", (e) => {
   }
 });
 
+// ============== PEDIR PESO NUMÉRICO (solo números enteros) ==============
+function askNumericWeight(defaultValue = "1") {
+  let value = null;
+  while (true) {
+    const input = prompt("Peso de la arista (solo números enteros):", defaultValue);
+    if (input === null) return null; // canceló
+    const trimmed = input.trim();
+    if (/^-?\d+$/.test(trimmed)) {
+      value = trimmed;
+      break;
+    } else {
+      alert("⚠️ Solo se permiten números enteros (ej: 1, 5, -3). Inténtalo de nuevo.");
+    }
+  }
+  return value;
+}
+
 function render() {
   nodesLayer.innerHTML = "";
   edgesGroup.innerHTML = "";
@@ -98,8 +115,12 @@ function render() {
       e.stopPropagation();
       if (currentMode === "modify") {
         const act = prompt("1: Eliminar Arista, 2: Cambiar Peso", "1");
-        if (act === "1") edges.splice(index, 1);
-        else if (act === "2") edge.weight = prompt("Nuevo peso:", edge.weight);
+        if (act === "1") {
+          edges.splice(index, 1);
+        } else if (act === "2") {
+          const newWeight = askNumericWeight(edge.weight);
+          if (newWeight !== null) edge.weight = newWeight;
+        }
         render();
       }
     };
@@ -140,7 +161,12 @@ function render() {
         if (!selectedNode) {
           selectedNode = node;
         } else {
-          const weight = prompt("Peso de la arista:", "1");
+          const weight = askNumericWeight("1");
+          if (weight === null) {
+            selectedNode = null;
+            render();
+            return;
+          }
           const directed = confirm("¿Es una arista dirigida (con flecha)?");
           edges.push({ from: selectedNode, to: node, weight, directed });
           selectedNode = null;
@@ -191,7 +217,6 @@ function createDraggableMatrix() {
         flex-direction: column;
     `;
 
-  // Title Bar
   const titleBar = document.createElement("div");
   titleBar.className = "matrix-title-bar";
   titleBar.style.cssText = `
@@ -242,7 +267,6 @@ function createDraggableMatrix() {
   titleBar.appendChild(titleInfo);
   titleBar.appendChild(closeBtn);
 
-  // Body
   const body = document.createElement("div");
   body.className = "matrix-window-body";
   body.style.cssText = `
@@ -256,7 +280,6 @@ function createDraggableMatrix() {
   wrapper.appendChild(titleBar);
   wrapper.appendChild(body);
 
-  // Dragging functionality
   let pos = { x: 50, y: 50 };
 
   titleBar.onmousedown = (e) => {
@@ -287,18 +310,16 @@ function createDraggableMatrix() {
   return wrapper;
 }
 
-// ... (mantén todo el código anterior hasta la función generateMatrixHTML)
-
 function generateMatrixHTML() {
   if (nodes.length === 0) {
     return "<p style='text-align:center; color:#94a3b8; padding:40px;'>No hay nodos en el grafo. Crea nodos para generar la matriz.</p>";
   }
 
   let matrix = [];
-  let rowSums = []; // Suma de PESOS de salida
-  let colSums = new Array(nodes.length).fill(0); // Suma de PESOS de entrada
-  let rowEdgeCount = []; // CANTIDAD de aristas de salida
-  let colEdgeCount = new Array(nodes.length).fill(0); // CANTIDAD de aristas de entrada
+  let rowSums = [];
+  let colSums = new Array(nodes.length).fill(0);
+  let rowEdgeCount = [];
+  let colEdgeCount = new Array(nodes.length).fill(0);
   let directedEdges = 0;
   let undirectedEdges = 0;
   let selfLoops = 0;
@@ -320,8 +341,8 @@ function generateMatrixHTML() {
         else if (edge.directed) directedEdges++;
         else undirectedEdges++;
 
-        edgeCount++; // Contar arista de salida
-        colEdgeCount[j]++; // Contar arista de entrada para el nodo destino
+        edgeCount++;
+        colEdgeCount[j]++;
       }
 
       weightSum += value;
@@ -332,23 +353,17 @@ function generateMatrixHTML() {
     rowEdgeCount[i] = edgeCount;
   });
 
-  // Calcular grados
   let degrees = nodes.map((node, i) => {
-    let inDegree = colSums[i];
-    let outDegree = rowSums[i];
-    let inEdges = colEdgeCount[i];
-    let outEdges = rowEdgeCount[i];
     return {
       node: node.name,
-      in: inDegree,
-      out: outDegree,
-      inEdges: inEdges,
-      outEdges: outEdges,
-      total: inDegree + outDegree,
+      in: colSums[i],
+      out: rowSums[i],
+      inEdges: colEdgeCount[i],
+      outEdges: rowEdgeCount[i],
+      total: colSums[i] + rowSums[i],
     };
   });
 
-  // ========== ANÁLISIS ESTADÍSTICO ==========
   let maxWeightOut = Math.max(...rowSums);
   let minWeightOut = Math.min(...rowSums);
   let maxWeightIn = Math.max(...colSums);
@@ -369,7 +384,6 @@ function generateMatrixHTML() {
   let maxEdgesInNode = nodes[colEdgeCount.indexOf(maxEdgesIn)].name;
   let minEdgesInNode = nodes[colEdgeCount.indexOf(minEdgesIn)].name;
 
-  // ========== TABLA MATRIZ ==========
   let html = `
         <div style="background:white; padding:24px; border-radius:12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom:20px;">
         <h3 style="color:#4f46e5; margin:0 0 20px 0; font-size:18px; display:flex; align-items:center; gap:8px;">
@@ -379,7 +393,6 @@ function generateMatrixHTML() {
         <table style="border-collapse:collapse; width:100%; text-align:center; font-size:13px;">
     `;
 
-  // Encabezado
   html += `<tr style='background:linear-gradient(135deg, #4f46e5, #6366f1); color:white;'>
         <th style='padding:12px; border:1px solid #e2e8f0; font-weight:600;'>De \\ A</th>`;
   nodes.forEach((n) => {
@@ -389,7 +402,6 @@ function generateMatrixHTML() {
   html += `<th style='padding:12px; border:1px solid #e2e8f0; font-weight:600; background:#7c3aed;'># Aristas Salida</th>`;
   html += "</tr>";
 
-  // Filas de datos
   matrix.forEach((row, i) => {
     html += `<tr><th style='background:#e0e7ff; padding:10px; border:1px solid #e2e8f0; font-weight:600; color:#4f46e5;'>${nodes[i].name}</th>`;
     row.forEach((val, j) => {
@@ -403,7 +415,6 @@ function generateMatrixHTML() {
     html += "</tr>";
   });
 
-  // Fila de suma de pesos de entrada
   html +=
     "<tr style='background:linear-gradient(135deg, #4f46e5, #6366f1); color:white;'><th style='padding:12px; border:1px solid #e2e8f0; font-weight:600;'>Σ Peso Entrada</th>";
   colSums.forEach((val) => {
@@ -414,7 +425,6 @@ function generateMatrixHTML() {
   html += `<td style='background:#1e293b; padding:12px; border:1px solid #e2e8f0;'></td>`;
   html += "</tr>";
 
-  // Fila de cantidad de aristas de entrada
   html +=
     "<tr style='background:#7c3aed; color:white;'><th style='padding:12px; border:1px solid #e2e8f0; font-weight:600;'># Aristas Entrada</th>";
   colEdgeCount.forEach((val) => {
@@ -427,7 +437,6 @@ function generateMatrixHTML() {
 
   html += "</table></div></div>";
 
-  // ========== TABLA DE GRADOS DETALLADA ==========
   html += `
         <div style="background:white; padding:24px; border-radius:12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom:20px;">
         <h3 style="color:#4f46e5; margin:0 0 20px 0; font-size:18px; display:flex; align-items:center; gap:8px;">
@@ -447,8 +456,8 @@ function generateMatrixHTML() {
         </tr>
     `;
 
-  degrees.forEach((d, idx) => {
-    html += `<tr style="transition: background 0.2s;">
+  degrees.forEach((d) => {
+    html += `<tr>
             <td style='background:#e0e7ff; padding:10px; border:1px solid #e2e8f0; font-weight:bold; color:#4f46e5;'>${d.node}</td>
             <td style='padding:10px; border:1px solid #e2e8f0; ${d.in === maxWeightIn ? "background:#86efac; font-weight:bold;" : ""}'>${d.in}</td>
             <td style='padding:10px; border:1px solid #e2e8f0; ${d.inEdges === maxEdgesIn ? "background:#c7d2fe; font-weight:bold;" : ""}'>${d.inEdges}</td>
@@ -459,7 +468,6 @@ function generateMatrixHTML() {
   });
   html += "</table></div></div>";
 
-  // ========== ANÁLISIS COMPLETO ==========
   html += `
         <div style="background:white; padding:24px; border-radius:12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
         <h3 style="color:#4f46e5; margin:0 0 20px 0; font-size:18px; display:flex; align-items:center; gap:8px;">
@@ -467,7 +475,6 @@ function generateMatrixHTML() {
         </h3>
         <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px;">
             
-            <!-- PESO DE SALIDA -->
             <div style="background:linear-gradient(135deg, #fef3c7, #fde68a); padding:18px; border-radius:10px; border-left:4px solid #f59e0b;">
                 <h4 style="color:#92400e; margin:0 0 12px 0; font-size:15px; font-weight:600; display:flex; align-items:center; gap:6px;">
                     <span style="font-size:20px;">🔺</span> Suma de Pesos de Salida
@@ -486,7 +493,6 @@ function generateMatrixHTML() {
                 </div>
             </div>
 
-            <!-- PESO DE ENTRADA -->
             <div style="background:linear-gradient(135deg, #dbeafe, #bfdbfe); padding:18px; border-radius:10px; border-left:4px solid #3b82f6;">
                 <h4 style="color:#1e40af; margin:0 0 12px 0; font-size:15px; font-weight:600; display:flex; align-items:center; gap:6px;">
                     <span style="font-size:20px;">🔻</span> Suma de Pesos de Entrada
@@ -505,7 +511,6 @@ function generateMatrixHTML() {
                 </div>
             </div>
 
-            <!-- ARISTAS DE SALIDA -->
             <div style="background:linear-gradient(135deg, #fef08a, #fde047); padding:18px; border-radius:10px; border-left:4px solid #eab308;">
                 <h4 style="color:#854d0e; margin:0 0 12px 0; font-size:15px; font-weight:600; display:flex; align-items:center; gap:6px;">
                     <span style="font-size:20px;">➡️</span> Cantidad de Aristas Salientes
@@ -524,7 +529,6 @@ function generateMatrixHTML() {
                 </div>
             </div>
 
-            <!-- ARISTAS DE ENTRADA -->
             <div style="background:linear-gradient(135deg, #bae6fd, #7dd3fc); padding:18px; border-radius:10px; border-left:4px solid #0ea5e9;">
                 <h4 style="color:#075985; margin:0 0 12px 0; font-size:15px; font-weight:600; display:flex; align-items:center; gap:6px;">
                     <span style="font-size:20px;">⬅️</span> Cantidad de Aristas Entrantes
@@ -543,7 +547,6 @@ function generateMatrixHTML() {
                 </div>
             </div>
 
-            <!-- ESTADÍSTICAS GENERALES -->
             <div style="background:linear-gradient(135deg, #e0e7ff, #c7d2fe); padding:18px; border-radius:10px; border-left:4px solid #6366f1;">
                 <h4 style="color:#4338ca; margin:0 0 12px 0; font-size:15px; font-weight:600; display:flex; align-items:center; gap:6px;">
                     <span style="font-size:20px;">📊</span> Estadísticas Generales
@@ -562,7 +565,6 @@ function generateMatrixHTML() {
                 </p>
             </div>
 
-            <!-- TIPO DE ARISTAS -->
             <div style="background:linear-gradient(135deg, #fce7f3, #fbcfe8); padding:18px; border-radius:10px; border-left:4px solid #ec4899;">
                 <h4 style="color:#9f1239; margin:0 0 12px 0; font-size:15px; font-weight:600; display:flex; align-items:center; gap:6px;">
                     <span style="font-size:20px;">🔀</span> Clasificación de Aristas
@@ -587,12 +589,18 @@ function generateMatrixHTML() {
   return html;
 }
 
-// ============== EXPORTAR GRAFO ==============
+// ============== EXPORTAR GRAFO (pide nombre de archivo) ==============
 function exportGraph() {
   if (nodes.length === 0) {
     alert("No hay nodos para exportar.");
     return;
   }
+
+  // Pedir nombre del archivo
+  let fileName = prompt("¿Con qué nombre quieres guardar el archivo? (sin extensión):", "grafo");
+  if (fileName === null) return; // canceló
+  fileName = fileName.trim();
+  if (fileName === "") fileName = "grafo";
 
   const graphData = {
     nodes: nodes.map((n) => ({
@@ -615,12 +623,12 @@ function exportGraph() {
 
   const a = document.createElement("a");
   a.href = url;
-  a.download = `grafo_${Date.now()}.json`;
+  a.download = `${fileName}.json`;
   a.click();
 
   URL.revokeObjectURL(url);
 
-  alert("✅ Grafo exportado exitosamente!");
+  alert(`✅ Grafo exportado como "${fileName}.json"`);
 }
 
 // ============== IMPORTAR GRAFO ==============

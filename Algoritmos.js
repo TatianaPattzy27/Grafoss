@@ -98,8 +98,18 @@ function render() {
       e.stopPropagation();
       if (currentMode === "modify") {
         const act = prompt("1: Eliminar Arista, 2: Cambiar Peso", "1");
-        if (act === "1") edges.splice(index, 1);
-        else if (act === "2") edge.weight = prompt("Nuevo peso:", edge.weight);
+        if (act === "1") {
+          edges.splice(index, 1);
+        } else if (act === "2") {
+          let newWeight = prompt("Nuevo peso (solo números):", edge.weight);
+          if (newWeight !== null) {
+            if (isNaN(newWeight) || newWeight.trim() === "") {
+              alert("¡Error! Debes ingresar un número válido.");
+            } else {
+              edge.weight = newWeight;
+            }
+          }
+        }
         render();
       }
     };
@@ -119,6 +129,47 @@ function render() {
   });
 
   nodes.forEach((node) => {
+    const div = document.createElement("div");
+    div.className = `node ${selectedNode === node ? "selected" : ""}`;
+    div.style.left = node.x - 22 + "px";
+    div.style.top = node.y - 22 + "px";
+    div.innerText = node.name;
+
+    div.onclick = (e) => {
+      e.stopPropagation();
+      if (currentMode === "modify") {
+        const act = prompt("1: Eliminar Nodo, 2: Cambiar Nombre", "1");
+        if (act === "1") {
+          nodes = nodes.filter((n) => n.id !== node.id);
+          edges = edges.filter(
+            (ed) => ed.from.id !== node.id && ed.to.id !== node.id,
+          );
+        } else if (act === "2") node.name = prompt("Nuevo nombre:", node.name);
+        render();
+      } else {
+        if (!selectedNode) {
+          selectedNode = node;
+        } else {
+          // MODIFICACIÓN 2: Al crear arista nueva
+          let weight = prompt("Peso de la arista:", "1");
+          
+          if (weight === null) {
+            selectedNode = null;
+          } else if (isNaN(weight) || weight.trim() === "") {
+            alert("¡Error! El peso debe ser un número.");
+            selectedNode = null;
+          } else {
+            const directed = confirm("¿Es una arista dirigida (con flecha)?");
+            edges.push({ from: selectedNode, to: node, weight, directed });
+            selectedNode = null;
+          }
+        }
+        render();
+      }
+    };
+    nodesLayer.appendChild(div);
+  });
+}  nodes.forEach((node) => {
     const div = document.createElement("div");
     div.className = `node ${selectedNode === node ? "selected" : ""}`;
     div.style.left = node.x - 22 + "px";
@@ -762,3 +813,4 @@ function pasteGraphJSON() {
   }
 }
  
+

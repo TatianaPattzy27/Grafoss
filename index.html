@@ -1,265 +1,294 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Análisis de Algoritmos - Pink Aesthetic</title>
-    <link rel="stylesheet" href="Algoritmos.css">
-</head>
-<body>
-
-<nav class="navbar">
-    <div class="logo">AlgoritmosGrafos</div>
-    <ul class="nav-links">
+    <link rel="stylesheet" href="Algoritmos.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">AlgoritmosGrafos</div>
+      <ul class="nav-links">
         <li><a href="#" onclick="showSection('inicio')">Inicio</a></li>
         <li><a href="#" onclick="showSection('analisis')">Análisis</a></li>
         <li><a href="#" onclick="showSection('grafos')">Grafos</a></li>
-        <li><a href="#" onclick="showMatrix()">Matriz</a></li>
-    </ul>
-</nav>
+      </ul>
+    </nav>
 
-<section id="inicio" class="content-section active">
-    <div class="hero">
+    <section id="inicio" class="content-section active">
+      <div class="hero">
         <div class="hero-card modern-hero">
-            <img src="https://lpz.ucb.edu.bo/wp-content/uploads/2021/04/logo-ucb-cuadrado.png" class="main-img">
-            <h1>Análisis de Algoritmos</h1>
-            <h1>Pattzy Gomez Diana Tatiana</h1>
-            <p class="subtitle">
-                Complejidad, eficiencia y optimización de estructuras de datos y grafos.
-            </p>
+          <img
+            src="https://lpz.ucb.edu.bo/wp-content/uploads/2021/04/logo-ucb-cuadrado.png"
+            class="main-img"
+          />
+          <h1>Análisis de Algoritmos</h1>
+          <h1>Pattzy Gomez Diana Tatiana</h1>
+          <p class="subtitle">
+            Complejidad, eficiencia y optimización de estructuras de datos y
+            grafos.
+          </p>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section id="analisis" class="content-section">
-    <div class="container">
+    <section id="analisis" class="content-section">
+      <div class="container">
         <h2 class="title">Análisis Avanzado de Algoritmos</h2>
 
         <div class="analysis-grid">
+          <div class="analysis-card">
+            <h3>📚 Definición Formal</h3>
+            <p>
+              El análisis de algoritmos es la rama de la informática que estudia
+              el comportamiento, eficiencia y rendimiento de los algoritmos en
+              función del tamaño de entrada.
+            </p>
+            <p>
+              Se basa en modelos matemáticos que permiten medir recursos como
+              tiempo de ejecución y memoria utilizada.
+            </p>
+          </div>
 
-            <div class="analysis-card">
-                <h3>📚 Definición Formal</h3>
-                <p>
-                    El análisis de algoritmos es la rama de la informática que estudia
-                    el comportamiento, eficiencia y rendimiento de los algoritmos
-                    en función del tamaño de entrada.
-                </p>
-                <p>
-                    Se basa en modelos matemáticos que permiten medir recursos
-                    como tiempo de ejecución y memoria utilizada.
-                </p>
-            </div>
+          <div class="analysis-card">
+            <h3>📊 Complejidad Temporal</h3>
+            <p>
+              Representa el número de operaciones elementales ejecutadas por un
+              algoritmo.
+            </p>
+            <ul>
+              <li><strong>O(1)</strong> – Constante</li>
+              <li><strong>O(log n)</strong> – Logarítmica</li>
+              <li><strong>O(n)</strong> – Lineal</li>
+              <li><strong>O(n log n)</strong> – Cuasi-lineal</li>
+              <li><strong>O(n²)</strong> – Cuadrática</li>
+              <li><strong>O(n³)</strong> – Cúbica</li>
+              <li><strong>O(2ⁿ)</strong> – Exponencial</li>
+              <li><strong>O(n!)</strong> – Factorial</li>
+            </ul>
+            <p>Se analiza principalmente el peor caso (Worst Case Analysis).</p>
+          </div>
 
-            <div class="analysis-card">
-                <h3>📊 Complejidad Temporal</h3>
-                <p>
-                    Representa el número de operaciones elementales ejecutadas
-                    por un algoritmo.
-                </p>
-                <ul>
-                    <li><strong>O(1)</strong> – Constante</li>
-                    <li><strong>O(log n)</strong> – Logarítmica</li>
-                    <li><strong>O(n)</strong> – Lineal</li>
-                    <li><strong>O(n log n)</strong> – Cuasi-lineal</li>
-                    <li><strong>O(n²)</strong> – Cuadrática</li>
-                    <li><strong>O(n³)</strong> – Cúbica</li>
-                    <li><strong>O(2ⁿ)</strong> – Exponencial</li>
-                    <li><strong>O(n!)</strong> – Factorial</li>
-                </ul>
-                <p>
-                    Se analiza principalmente el peor caso (Worst Case Analysis).
-                </p>
-            </div>
+          <div class="analysis-card">
+            <h3>💾 Complejidad Espacial</h3>
+            <p>Mide la cantidad total de memoria requerida por un algoritmo.</p>
+            <ul>
+              <li>Variables auxiliares</li>
+              <li>Estructuras dinámicas</li>
+              <li>Memoria recursiva (stack)</li>
+            </ul>
+            <p>Un algoritmo puede ser rápido pero ineficiente en memoria.</p>
+          </div>
 
-            <div class="analysis-card">
-                <h3>💾 Complejidad Espacial</h3>
-                <p>
-                    Mide la cantidad total de memoria requerida por un algoritmo.
-                </p>
-                <ul>
-                    <li>Variables auxiliares</li>
-                    <li>Estructuras dinámicas</li>
-                    <li>Memoria recursiva (stack)</li>
-                </ul>
-                <p>
-                    Un algoritmo puede ser rápido pero ineficiente en memoria.
-                </p>
-            </div>
+          <div class="analysis-card">
+            <h3>📐 Análisis Asintótico</h3>
+            <p>Permite estudiar el crecimiento del algoritmo cuando n → ∞.</p>
+            <ul>
+              <li>Notación Big-O (límite superior)</li>
+              <li>Notación Omega Ω (límite inferior)</li>
+              <li>Notación Theta Θ (ajuste exacto)</li>
+            </ul>
+            <p>Ignora constantes y términos de menor orden.</p>
+          </div>
 
-            <div class="analysis-card">
-                <h3>📐 Análisis Asintótico</h3>
-                <p>
-                    Permite estudiar el crecimiento del algoritmo cuando n → ∞.
-                </p>
-                <ul>
-                    <li>Notación Big-O (límite superior)</li>
-                    <li>Notación Omega Ω (límite inferior)</li>
-                    <li>Notación Theta Θ (ajuste exacto)</li>
-                </ul>
-                <p>
-                    Ignora constantes y términos de menor orden.
-                </p>
-            </div>
+          <div class="analysis-card">
+            <h3>📈 Recurrencias</h3>
+            <p>
+              Muchos algoritmos recursivos se analizan mediante ecuaciones de
+              recurrencia.
+            </p>
+            <p>Ejemplo: T(n) = 2T(n/2) + n</p>
+            <p>Puede resolverse utilizando el Teorema Maestro.</p>
+          </div>
 
-            <div class="analysis-card">
-                <h3>📈 Recurrencias</h3>
-                <p>
-                    Muchos algoritmos recursivos se analizan mediante ecuaciones de recurrencia.
-                </p>
-                <p>
-                    Ejemplo: T(n) = 2T(n/2) + n
-                </p>
-                <p>
-                    Puede resolverse utilizando el Teorema Maestro.
-                </p>
-            </div>
+          <div class="analysis-card">
+            <h3>🧠 Teorema Maestro</h3>
+            <p>Permite resolver recurrencias de la forma:</p>
+            <p>T(n) = aT(n/b) + f(n)</p>
+            <p>
+              Dependiendo del valor de f(n) se determina el orden de complejidad
+              final.
+            </p>
+          </div>
 
-            <div class="analysis-card">
-                <h3>🧠 Teorema Maestro</h3>
-                <p>
-                    Permite resolver recurrencias de la forma:
-                </p>
-                <p>
-                    T(n) = aT(n/b) + f(n)
-                </p>
-                <p>
-                    Dependiendo del valor de f(n) se determina
-                    el orden de complejidad final.
-                </p>
-            </div>
+          <div class="analysis-card">
+            <h3>🧮 Tipos de Algoritmos</h3>
+            <ul>
+              <li>Divide y vencerás</li>
+              <li>Programación dinámica</li>
+              <li>Voraces (Greedy)</li>
+              <li>Backtracking</li>
+              <li>Algoritmos probabilísticos</li>
+            </ul>
+          </div>
 
-            <div class="analysis-card">
-                <h3>🧮 Tipos de Algoritmos</h3>
-                <ul>
-                    <li>Divide y vencerás</li>
-                    <li>Programación dinámica</li>
-                    <li>Voraces (Greedy)</li>
-                    <li>Backtracking</li>
-                    <li>Algoritmos probabilísticos</li>
-                </ul>
-            </div>
+          <div class="analysis-card">
+            <h3>🌐 Teoría de Grafos</h3>
+            <p>
+              Un grafo G = (V, E) está compuesto por un conjunto de vértices V y
+              un conjunto de aristas E.
+            </p>
+            <ul>
+              <li>Grafos dirigidos y no dirigidos</li>
+              <li>Grafos ponderados</li>
+              <li>Grafos conexos</li>
+              <li>Árboles y bosques</li>
+            </ul>
+          </div>
 
-            <div class="analysis-card">
-                <h3>🌐 Teoría de Grafos</h3>
-                <p>
-                    Un grafo G = (V, E) está compuesto por un conjunto de vértices V
-                    y un conjunto de aristas E.
-                </p>
-                <ul>
-                    <li>Grafos dirigidos y no dirigidos</li>
-                    <li>Grafos ponderados</li>
-                    <li>Grafos conexos</li>
-                    <li>Árboles y bosques</li>
-                </ul>
-            </div>
+          <div class="analysis-card">
+            <h3>🚀 Algoritmos en Grafos</h3>
+            <ul>
+              <li><strong>BFS</strong> – O(V+E)</li>
+              <li><strong>DFS</strong> – O(V+E)</li>
+              <li><strong>Dijkstra</strong> – O((V+E) log V)</li>
+              <li><strong>Floyd-Warshall</strong> – O(n³)</li>
+              <li><strong>Kruskal</strong> – O(E log E)</li>
+              <li><strong>Prim</strong> – O(E log V)</li>
+            </ul>
+          </div>
 
-            <div class="analysis-card">
-                <h3>🚀 Algoritmos en Grafos</h3>
-                <ul>
-                    <li><strong>BFS</strong> – O(V+E)</li>
-                    <li><strong>DFS</strong> – O(V+E)</li>
-                    <li><strong>Dijkstra</strong> – O((V+E) log V)</li>
-                    <li><strong>Floyd-Warshall</strong> – O(n³)</li>
-                    <li><strong>Kruskal</strong> – O(E log E)</li>
-                    <li><strong>Prim</strong> – O(E log V)</li>
-                </ul>
-            </div>
+          <div class="analysis-card">
+            <h3>⚙️ Comparación de Eficiencia</h3>
+            <p>
+              Para grandes volúmenes de datos, un algoritmo O(n log n) es
+              significativamente más eficiente que uno O(n²).
+            </p>
+            <p>
+              La elección correcta impacta directamente en el rendimiento del
+              sistema.
+            </p>
+          </div>
 
-            <div class="analysis-card">
-                <h3>⚙️ Comparación de Eficiencia</h3>
-                <p>
-                    Para grandes volúmenes de datos,
-                    un algoritmo O(n log n) es significativamente
-                    más eficiente que uno O(n²).
-                </p>
-                <p>
-                    La elección correcta impacta directamente
-                    en el rendimiento del sistema.
-                </p>
-            </div>
+          <div class="analysis-card">
+            <h3>🏗 Aplicaciones Reales</h3>
+            <ul>
+              <li>Optimización de rutas (GPS)</li>
+              <li>Redes sociales</li>
+              <li>Sistemas de recomendación</li>
+              <li>Redes eléctricas</li>
+              <li>Planificación logística</li>
+              <li>Inteligencia Artificial</li>
+            </ul>
+          </div>
+          <div class="analysis-card">
+            <h3>🧠 Representación Visual de Grafos</h3>
 
-            <div class="analysis-card">
-                <h3>🏗 Aplicaciones Reales</h3>
-                <ul>
-                    <li>Optimización de rutas (GPS)</li>
-                    <li>Redes sociales</li>
-                    <li>Sistemas de recomendación</li>
-                    <li>Redes eléctricas</li>
-                    <li>Planificación logística</li>
-                    <li>Inteligencia Artificial</li>
-                </ul>
-            </div>
-            <div class="analysis-card">
-    <h3>🧠 Representación Visual de Grafos</h3>
+            <p>
+              Los grafos pueden representarse visualmente mediante nodos y
+              aristas. Esta representación permite comprender conexiones,
+              caminos mínimos y estructuras jerárquicas.
+            </p>
 
-    <p>
-        Los grafos pueden representarse visualmente mediante nodos y aristas.
-        Esta representación permite comprender conexiones, caminos mínimos
-        y estructuras jerárquicas.
-    </p>
+            <img
+              src="grafo-no-dirigido.webp"
+              alt="Ejemplo de Grafo"
+              style="width: 100%; border-radius: 12px; margin: 15px 0"
+            />
 
-    <img src="grafo-no-dirigido.webp" 
-         alt="Ejemplo de Grafo"
-         style="width:100%; border-radius:12px; margin:15px 0;">
-
-    <p>
-        En la imagen se observa un grafo no dirigido donde los vértices
-        están conectados mediante aristas simples.
-    </p>
-</div>
-            <div class="analysis-card">
-                <h3>🎓 Conclusión Académica</h3>
-                <p>
-                    El análisis de algoritmos permite diseñar soluciones
-                    óptimas, escalables y eficientes.
-                </p>
-                <p>
-                    Comprender la complejidad es fundamental para el desarrollo
-                    de software de alto rendimiento.
-                </p>
-            </div>
-
+            <p>
+              En la imagen se observa un grafo no dirigido donde los vértices
+              están conectados mediante aristas simples.
+            </p>
+          </div>
+          <div class="analysis-card">
+            <h3>🎓 Conclusión Académica</h3>
+            <p>
+              El análisis de algoritmos permite diseñar soluciones óptimas,
+              escalables y eficientes.
+            </p>
+            <p>
+              Comprender la complejidad es fundamental para el desarrollo de
+              software de alto rendimiento.
+            </p>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<section id="grafos" class="content-section">
-    <div class="container">
+    <section id="grafos" class="content-section">
+      <div class="container">
         <h2 class="title">Simulador Interactivo</h2>
 
         <div class="toolbar">
-            <button class="btn btn-clear" onclick="clearCanvas()">Limpiar Todo</button>
-            <button id="btn-mode" class="btn btn-mode" onclick="toggleMode()">Modo: Crear</button>
-            <button class="btn btn-mode" onclick="showMatrix()">Matriz</button>
+          <button class="btn btn-clear" onclick="clearCanvas()">
+            Limpiar Todo
+          </button>
+          <button id="btn-mode" class="btn btn-mode" onclick="toggleMode()">
+            Modo: Crear
+          </button>
+          <button class="btn btn-matrix" onclick="showMatrix()">
+            📊 Ver Matriz
+          </button>
+        </div>
+
+        <div class="toolbar" style="margin-top: 10px">
+          <button
+            class="btn btn-export"
+            onclick="exportGraph()"
+            title="Descargar grafo como JSON"
+          >
+            📥 Exportar JSON
+          </button>
+          <button
+            class="btn btn-import"
+            onclick="importGraph()"
+            title="Cargar grafo desde archivo JSON"
+          >
+            📤 Importar JSON
+          </button>
+          <button
+            class="btn btn-copy"
+            onclick="copyGraphJSON()"
+            title="Copiar JSON al portapapeles"
+          >
+            📋 Copiar JSON
+          </button>
+          <button
+            class="btn btn-paste"
+            onclick="pasteGraphJSON()"
+            title="Pegar JSON desde portapapeles"
+          >
+            📌 Pegar JSON
+          </button>
         </div>
 
         <div id="graph-container">
-            <svg id="svg-canvas">
-                <defs>
-                    <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="21" refY="5" orient="auto">
-                        <path d="M0,0 L10,5 L0,10 Z" fill="#f06292" />
-                    </marker>
-                    <marker id="arrow-black" markerWidth="10" markerHeight="10" refX="21" refY="5" orient="auto">
-                        <path d="M0,0 L10,5 L0,10 Z" fill="#333" />
-                    </marker>
-                </defs>
-                <g id="edges-group"></g>
-            </svg>
-            <div id="nodes-layer"></div>
+          <svg id="svg-canvas">
+            <defs>
+              <marker
+                id="arrow-pink"
+                markerWidth="10"
+                markerHeight="10"
+                refX="21"
+                refY="5"
+                orient="auto"
+              >
+                <path d="M0,0 L10,5 L0,10 Z" fill="#f06292" />
+              </marker>
+              <marker
+                id="arrow-black"
+                markerWidth="10"
+                markerHeight="10"
+                refX="21"
+                refY="5"
+                orient="auto"
+              >
+                <path d="M0,0 L10,5 L0,10 Z" fill="#333" />
+              </marker>
+            </defs>
+            <g id="edges-group"></g>
+          </svg>
+          <div id="nodes-layer"></div>
         </div>
 
-        <p id="hint" class="hint">Click en el fondo blanco para crear un nodo.</p>
-    </div>
-</section>
+        <p id="hint" class="hint">
+          Click en el fondo blanco para crear un nodo.
+        </p>
+      </div>
+    </section>
 
-<section id="matriz" class="content-section">
-    <div class="container">
-        <h2 class="title">Matriz de Adyacencia</h2>
-        <div id="matrix-container" class="info-card"></div>
-        <div id="matrix-results" class="info-card" style="margin-top:20px;"></div>
-    </div>
-</section>
-
-<script src="Algoritmos.js"></script>
-</body>
+    <script src="Algoritmos.js"></script>
+  </body>
 </html>

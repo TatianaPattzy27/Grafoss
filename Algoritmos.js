@@ -761,3 +761,4 @@ function pasteGraphJSON() {
     alert("❌ Error al cargar el grafo: " + error.message);
   }
 }
+ 

@@ -169,39 +169,7 @@ function render() {
     };
     nodesLayer.appendChild(div);
   });
-}  nodes.forEach((node) => {
-    const div = document.createElement("div");
-    div.className = `node ${selectedNode === node ? "selected" : ""}`;
-    div.style.left = node.x - 22 + "px";
-    div.style.top = node.y - 22 + "px";
-    div.innerText = node.name;
-
-    div.onclick = (e) => {
-      e.stopPropagation();
-      if (currentMode === "modify") {
-        const act = prompt("1: Eliminar Nodo, 2: Cambiar Nombre", "1");
-        if (act === "1") {
-          nodes = nodes.filter((n) => n.id !== node.id);
-          edges = edges.filter(
-            (ed) => ed.from.id !== node.id && ed.to.id !== node.id,
-          );
-        } else if (act === "2") node.name = prompt("Nuevo nombre:", node.name);
-        render();
-      } else {
-        if (!selectedNode) {
-          selectedNode = node;
-        } else {
-          const weight = prompt("Peso de la arista:", "1");
-          const directed = confirm("¿Es una arista dirigida (con flecha)?");
-          edges.push({ from: selectedNode, to: node, weight, directed });
-          selectedNode = null;
-        }
-        render();
-      }
-    };
-    nodesLayer.appendChild(div);
-  });
-}
+} 
 
 function clearCanvas() {
   if (confirm("¿Estás seguro de que quieres borrar todo el grafo?")) {
@@ -813,4 +781,5 @@ function pasteGraphJSON() {
   }
 }
  
+
 
